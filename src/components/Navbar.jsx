@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { GET_USER_INFO, HOST } from "../utils/constants";
+import apiClient from "../utils/apiClient";
 import ContextMenu from "./ContextMenu";
 import { useStateProvider } from "../context/StateContext";
 import { reducerCases } from "../context/constants";
@@ -88,16 +89,7 @@ function Navbar() {
         try {
           const {
             data: { user },
-          } = await axios.post(
-            GET_USER_INFO,
-            {},
-            {
-              withCredentials: true,
-              headers: {
-                Authorization: `Bearer ${cookies.jwt}`,
-              },
-            }
-          );
+          } = await apiClient.post(GET_USER_INFO, {});
 
           let projectedUserInfo = { ...user };
           if (user.image) {

@@ -34,3 +34,20 @@ export const GET_UNREAD_MESSAGES = `${MESSAGES_ROUTES}/unread-messages`;
 export const MARK_AS_READ_ROUTE = `${MESSAGES_ROUTES}/mark-as-read`;
 
 export const GET_SELLER_DASHBOARD_DATA = `${DASHBOARD_DATA_ROUTES}/seller`;
+
+// Helper function to get auth config for API calls
+export const getAuthConfig = (cookies, contentType = 'application/json') => {
+  const config = {
+    withCredentials: true,
+    headers: {
+      'Content-Type': contentType,
+    }
+  };
+  
+  // Add Authorization header with JWT token if available
+  if (cookies?.jwt) {
+    config.headers.Authorization = `Bearer ${cookies.jwt}`;
+  }
+  
+  return config;
+};
