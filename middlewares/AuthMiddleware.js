@@ -1,7 +1,18 @@
 import jwt from "jsonwebtoken";
 
 export const verifyToken = (req, res, next) => {
-  const token = req.cookies.jwt;  // Directly access the token from cookies
+  // Check for token in cookies
+  let token = req.cookies?.jwt;
+  
+  // If not in cookies, check Authorization header
+  if (!token && req.headers.authorization) {
+    // Format: "Bearer [token]"
+    const authHeader = req.headers.authorization;
+    if (authHeader.startsWith('Bearer ')) {
+      token = authHeader.substring(7);
+    }
+  }
+  
   if (!token) {
     return res.status(401).send("You are not authenticated!");
   }
