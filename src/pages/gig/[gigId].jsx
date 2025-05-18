@@ -3,6 +3,7 @@ import Pricing from "../../components/Gigs/Pricing";
 import Details from "../../components/Gigs/Details";
 import { useRouter } from "next/router";
 import axios from "axios";
+import apiClient from "../../utils/apiClient";
 import {
   CHECK_USER_ORDERED_GIG_ROUTE,
   GET_GIG_DATA,
@@ -33,17 +34,24 @@ function Gig() {
 
   useEffect(() => {
     const checkGigOrdered = async () => {
-      const {
-        data: { hasUserOrderedGig },
-      } = await axios.get(`${CHECK_USER_ORDERED_GIG_ROUTE}/${gigId}`, {
-        withCredentials: true,
-      });
-      dispatch({
-        type: reducerCases.HAS_USER_ORDERED_GIG,
-        hasOrdered: hasUserOrderedGig,
-      });
+      try {
+        const {
+          data: { hasUserOrderedGig },
+        } = await apiClient.get(`${CHECK_USER_ORDERED_GIG_ROUTE}/${gigId}`);
+        dispatch({
+          type: reducerCases.HAS_USER_ORDERED_GIG,
+          hasOrdered: hasUserOrderedGig,
+        });
+      } catch (err) {
+        console.log("Error checking if gig was ordered:", err);
+        // If there's an error, assume the user hasn't ordered the gig
+        dispatch({
+          type: reducerCases.HAS_USER_ORDERED_GIG,
+          hasOrdered: false,
+        });
+      }
     };
-    if (userInfo) {
+    if (userInfo && gigId) {
       checkGigOrdered();
     }
   }, [dispatch, gigId, userInfo]);

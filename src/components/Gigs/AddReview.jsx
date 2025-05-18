@@ -2,6 +2,7 @@ import { useStateProvider } from "../../context/StateContext";
 import { reducerCases } from "../../context/constants";
 import { ADD_REVIEW } from "../../utils/constants";
 import axios from "axios";
+import apiClient from "../../utils/apiClient";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
@@ -13,10 +14,9 @@ function AddReview() {
   const { gigId } = router.query;
   const addReview = async () => {
     try {
-      const response = await axios.post(
+      const response = await apiClient.post(
         `${ADD_REVIEW}/${gigId}`,
-        { ...data },
-        { withCredentials: true }
+        { ...data }
       );
       if (response.status === 201) {
         setData({ reviewText: "", rating: 0 });

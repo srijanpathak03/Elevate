@@ -69,6 +69,10 @@ function AuthWrapper({ type }) {
     }
   };
 
+  const fillDemoCredentials = () => {
+    setValues({ email: "test@gmail.com", password: "123456" });
+  };
+
   useEffect(() => {
     const html = document.querySelector("html");
     const authModal = document.querySelector("#auth-modal");
@@ -105,13 +109,13 @@ function AuthWrapper({ type }) {
           <div className="flex flex-col justify-center items-center p-8 gap-7">
             <h3 className="text-2xl font-semibold text-slate-700">
               {type === "login" ? "Login" : "Sign"}
-              in to Elevate
+              In to Elevate
             </h3>
             <div className="flex flex-col gap-5">
-              <button className="text-white bg-blue-500 p-3 font-semibold w-80 flex items-center justify-center relative">
+              {/* <button className="text-white bg-blue-500 p-3 font-semibold w-80 flex items-center justify-center relative">
                 <MdFacebook className="absolute left-4 text-2xl" />
                 Continue with Facebook
-              </button>
+              </button> */}
               <button className="border border-slate-300 p-3 font-medium w-80 flex items-center justify-center relative">
                 <FcGoogle className="absolute left-4 text-2xl" />
                 Continue with Google
@@ -129,6 +133,7 @@ function AuthWrapper({ type }) {
                 placeholder="Email / Username"
                 className="border border-slate-300 p-3 w-80"
                 onChange={handleChange}
+                value={values.email}
               />
               <div className="relative">
                 <input
@@ -137,6 +142,7 @@ function AuthWrapper({ type }) {
                   className="border border-slate-300 p-3 w-80"
                   name="password"
                   onChange={handleChange}
+                  value={values.password}
                 />
                 <button
                   type="button"
@@ -150,6 +156,19 @@ function AuthWrapper({ type }) {
                   )}
                 </button>
               </div>
+              {type === "login" && (
+                <div className="bg-blue-50 border border-blue-200 rounded-md p-3 text-sm text-blue-800">
+                  <p className="font-semibold mb-1">Demo Login Credentials:</p>
+                  <p>Email: test@gmail.com</p>
+                  <p>Password: 123456</p>
+                  <button 
+                    onClick={fillDemoCredentials}
+                    className="mt-2 text-blue-600 underline hover:text-blue-800"
+                  >
+                    Fill Demo Credentials
+                  </button>
+                </div>
+              )}
               <button
                 className="bg-[#1DBF73] text-white px-12 text-lg font-semibold rounded-r-md p-3 w-80 flex items-center justify-center relative"
                 onClick={handleClick}

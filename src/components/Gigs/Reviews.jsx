@@ -1,6 +1,7 @@
 import { useStateProvider } from "../../context/StateContext";
 import { HOST } from "../../utils/constants";
 import Image from "next/image";
+import { imageLoader } from "../../utils/imageLoader";
 import React, { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
@@ -44,11 +45,13 @@ function Reviews() {
                 <div>
                   {review.reviewer.profileImage ? (
                     <Image
+                      loader={imageLoader}
                       src={HOST + "/" + review.reviewer.profileImage}
                       alt="Profile"
                       width={40}
                       height={40}
                       className="rounded-full"
+                      unoptimized
                     />
                   ) : (
                     <div className="bg-purple-500 h-10 w-10 flex items-center justify-center rounded-full relative">

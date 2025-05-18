@@ -5,6 +5,7 @@ import Reviews from "../../components/Gigs/Reviews";
 import { FaStar } from "react-icons/fa";
 import { useStateProvider } from "../../context/StateContext";
 import { HOST } from "../../utils/constants";
+import { imageLoader } from "../../utils/imageLoader";
 
 function Details() {
   const [{ gigData, hasOrdered }] = useStateProvider();
@@ -36,11 +37,13 @@ function Details() {
             <div>
               {gigData.createdBy.profileImage ? (
                 <Image
+                  loader={imageLoader}
                   src={HOST + "/" + gigData.createdBy.profileImage}
                   alt="profile"
                   height={30}
                   width={30}
                   className="rounded-full"
+                  unoptimized
                 />
               ) : (
                 <div className="bg-purple-500 h-10 w-10 flex items-center justify-center rounded-full relative">
@@ -76,17 +79,20 @@ function Details() {
           <div className="flex flex-col gap-4">
             <div className="max-h-[1000px] max-w-[1000px] overflow-hidden">
               <Image
+                loader={imageLoader}
                 src={HOST + "/uploads/" + currentImage}
                 alt="Gig"
                 height={1000}
                 width={1000}
                 className="hover:scale-110 transition-all duration-500"
+                unoptimized
               />
             </div>
             <div className="flex gap-4 flex-wrap">
               {gigData.images.length > 1 &&
                 gigData.images.map((image) => (
                   <Image
+                    loader={imageLoader}
                     src={HOST + "/uploads/" + image}
                     alt="gig"
                     height={100}
@@ -96,6 +102,7 @@ function Details() {
                     className={`${
                       currentImage === image ? "" : "blur-sm"
                     } cursor-pointer transition-all duration-500`}
+                    unoptimized
                   />
                 ))}
             </div>
@@ -117,11 +124,13 @@ function Details() {
               <div>
                 {gigData.createdBy.profileImage ? (
                   <Image
+                    loader={imageLoader}
                     src={HOST + "/" + gigData.createdBy.profileImage}
                     alt="profile"
                     height={120}
                     width={120}
                     className="rounded-full"
+                    unoptimized
                   />
                 ) : (
                   <div className="bg-purple-500 h-10 w-10 flex items-center justify-center rounded-full relative">

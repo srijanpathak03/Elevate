@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from "axios";
+import apiClient from "../utils/apiClient";
 import { CREATE_ORDER } from "../utils/constants";
 import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "../components/CheckoutForm";
@@ -15,12 +16,12 @@ function Checkout() {
   const { gigId } = router.query;
   useEffect(() => {
     const createOrderIntent = async () => {
-      const { data } = await axios.post(
-        CREATE_ORDER,
-        { gigId },
-        { withCredentials: true }
-      );
-      setClientSecret(data.clientSecret);
+      try {
+        const { data } = await apiClient.post(CREATE_ORDER, { gigId });
+        setClientSecret(data.clientSecret);
+      } catch (err) {
+        console.log("Error creating order:", err);
+      }
     };
     if (gigId) createOrderIntent();
   }, [gigId]);
