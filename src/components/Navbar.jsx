@@ -7,6 +7,7 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { GET_USER_INFO, HOST } from "../utils/constants";
 import apiClient from "../utils/apiClient";
+import { imageLoader } from "../utils/imageLoader";
 import ContextMenu from "./ContextMenu";
 import { useStateProvider } from "../context/StateContext";
 import { reducerCases } from "../context/constants";
@@ -93,10 +94,17 @@ function Navbar() {
 
           let projectedUserInfo = { ...user };
           if (user.image) {
-            projectedUserInfo = {
-              ...projectedUserInfo,
-              imageName: HOST + "/" + user.image,
-            };
+            if (user.image.startsWith('http')) {
+              projectedUserInfo = {
+                ...projectedUserInfo,
+                imageName: user.image,
+              };
+            } else {
+              projectedUserInfo = {
+                ...projectedUserInfo,
+                imageName: `${HOST}/${user.image}`,
+              };
+            }
           }
           delete projectedUserInfo.image;
           dispatch({
@@ -246,11 +254,13 @@ function Navbar() {
                 >
                   {userInfo?.imageName ? (
                     <Image
+                      loader={imageLoader}
                       src={userInfo.imageName}
                       alt="Profile"
                       width={28}
                       height={28}
                       className="rounded-full"
+                      unoptimized
                     />
                   ) : (
                     <div className="bg-purple-500 h-7 w-7 flex items-center justify-center rounded-full relative">
@@ -311,11 +321,13 @@ function Navbar() {
                   <div className="flex items-center gap-3 mb-8 pb-4 border-b border-gray-800">
                     {userInfo?.imageName ? (
                       <Image
+                        loader={imageLoader}
                         src={userInfo.imageName}
                         alt="Profile"
                         width={40}
                         height={40}
                         className="rounded-full"
+                        unoptimized
                       />
                     ) : (
                       <div className="bg-purple-500 h-10 w-10 flex items-center justify-center rounded-full">

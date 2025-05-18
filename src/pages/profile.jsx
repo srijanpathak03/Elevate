@@ -7,12 +7,16 @@ import {
   SET_USER_INFO,
 } from "../utils/constants";
 import axios from "axios";
+import apiClient from "../utils/apiClient";
 import Image from "next/image";
+import { imageLoader } from "../utils/imageLoader";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 function Profile() {
   const router = useRouter();
+  const [cookies] = useCookies();
   const [{ userInfo }, dispatch] = useStateProvider();
   const [isLoaded, setIsLoaded] = useState(false);
   const [imageHover, setImageHover] = useState(false);
@@ -70,18 +74,10 @@ function Profile() {
       // Check if the username is the same as the existing one
       if (userInfo.username === data.userName) {
         // Send the profile update request without checking for username conflicts
-        await axios.post(
-          SET_USER_INFO,
-          payload,
-          { withCredentials: true }
-        );
+        await apiClient.post(SET_USER_INFO, payload);
       } else {
         // Check for username conflicts
-        const response = await axios.post(
-          SET_USER_INFO,
-          payload,
-          { withCredentials: true }
-        );
+        const response = await apiClient.post(SET_USER_INFO, payload);
 
         if (response.data.userNameError) {
           setErrorMessage("Username already taken. Please choose another.");
@@ -96,13 +92,24 @@ function Profile() {
         formData.append("images", image);
         const {
           data: { img },
-        } = await axios.post(SET_USER_IMAGE, formData, {
-          withCredentials: true,
+        } = await apiClient.post(SET_USER_IMAGE, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${cookies.jwt}`,
           },
         });
         imageName = img;
+      }
+
+      // Handle image URL correctly based on environment
+      let imageUrl = userInfo.image;
+      if (imageName) {
+        // Check if the image path already includes the host
+        if (imageName.startsWith('http')) {
+          imageUrl = imageName;
+        } else {
+          imageUrl = `${HOST}/${imageName}`;
+        }
       }
 
       dispatch({
@@ -110,7 +117,7 @@ function Profile() {
         userInfo: {
           ...userInfo,
           ...data,
-          image: imageName ? `${HOST}/${imageName}` : userInfo.image,
+          image: imageUrl,
         },
       });
 
@@ -157,10 +164,12 @@ function Profile() {
               <div className="bg-gradient-to-br from-purple-500 to-indigo-600 h-40 w-40 flex items-center justify-center rounded-full relative shadow-lg">
                 {image ? (
                   <Image
+                    loader={imageLoader}
                     src={URL.createObjectURL(image)}
                     alt="Profile"
                     fill
                     className="rounded-full object-cover"
+                    unoptimized
                   />
                 ) : (
                   <span className="text-6xl text-white font-bold">
