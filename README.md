@@ -1,38 +1,104 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ELEVATE | Freelancing Platform
 
-## Getting Started
+Welcome to **ELEVATE**, a freelancing platform developed for the **Smart India Hackathon 2024 (SIH)**. This platform connects freelancers with short-term and project-based opportunities, offering powerful tools for gig management and AI-driven recommendations.
 
-First, run the development server:
+![Elevate](assets/images/Homepage.png)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 🚀 Features
+- **Gig Management System**: Built using **Next.js** and **Express.js**, allowing users to create, edit, and manage freelance gigs seamlessly.
+- **AI-Powered Gig Analysis**: Developed an AI-based system that evaluates gig quality based on descriptions, pricing, and reviews. Helps over 100 gigs per month with smart recommendations.
+- **In-app Chat**: Real-time messaging with support for up to 2,000 messages daily using **React.js**.
+- **Secure Payments**: Integrated **Stripe** for escrow-like payment handling, ensuring safe and transparent transactions.
+  
+## 🛠️ Tech Stack
+- **Frontend**: Next.js, React.js, Tailwind CSS
+- **Backend**: Node.js, Express.js, PostgreSQL, Prisma
+- **Payments**: Stripe
+- **AI**: OpenAI API
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎯 Hackathon Problem Statement
+![Problem Statement](assets/images/ProblemStatement.png)
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+This project was developed as part of the **Hackathon** for the theme of **Smart Education**, focused on solving real-world freelancing challenges.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## 📸 Screenshots & Functionalities
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### 1. Gig Management System
+![Gig Management System](assets/images/AllGigs.png)
+- Create, edit, and manage freelance gigs with ease using the intuitive interface.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### 2. Real-time Messaging
+![Real-time Messaging](assets/images/ChatFeature.png)
+- Seamless chat between freelancers and clients, supporting up to 2,000 messages daily.
 
-## Learn More
+### 3. AI-Powered Gig Analysis
+![AI-Powered Analysis](assets/images/GigCard.png)
+- Analyze and receive suggestions on gig quality based on pricing and reviews, powered by AI.
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Gig Reviews
+![Gig Reviews](assets/images/Gig.png)
+- Users can leave and read reviews for gigs, helping to build trust and improve the quality of freelance services. The review system provides valuable feedback for both freelancers and clients.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## ⚙️ Installation & Setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/srijanpathak03/Elevate.git
+   cd Elevate
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+2. **Install dependencies**
+    ```bash
+    yarn install
+    ```
+
+3. **Setup Prisma**
+    ```bash
+    npx prisma generate
+    npx prisma migrate dev
+    ```
+
+4. **Environment Variables**
+
+Create a .env file in the server directory and add your environment variables:
+    ```
+    DATABASE_URL=your_postgres_url
+    STRIPE_SECRET_KEY=your_stripe_key
+    OPENAI_API_KEY=your_api_key
+    ```
+    
+5. **Run the development server**
+
+    ```bash
+    cd server
+    yarn run dev
+    ```
+6. **Run the NextJS server**
+
+    ```bash
+    cd client
+    yarn run dev
+    ```
+## 🤝 Contributing
+
+We welcome contributions to **ELEVATE**! If you’d like to contribute, feel free to fork the repository and submit a pull request. You can also open issues for suggestions, feature requests, or bugs.
+
+1. **Fork the repository**
+2. **Create a new branch**
+   ```bash
+   git checkout -b feature-branch
+   ```
+3. **Make your changes**
+  
+4. **Commit your changes**
+    ```bash
+    git commit -m "Describe your changes"
+    ```
+5. **Push to the branch and open a PR**
+    ```bash
+    git push origin feature-branch
+    ```  
+
+   
+We appreciate your contributions to improve the platform! ❤️
