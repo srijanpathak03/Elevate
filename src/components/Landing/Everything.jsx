@@ -16,7 +16,7 @@ function Everything() {
     {
       title: "Secure payments with escrow",
       subtitle:
-        "Benefit from a secure escrow system that holds funds until the project is completed to your satisfaction. Pay only when you’re happy with the work.",
+        "Benefit from a secure escrow system that holds funds until the project is completed to your satisfaction. Pay only when you're happy with the work.",
     },
     {
       title: "Advanced search & AI insights",
@@ -26,25 +26,35 @@ function Everything() {
   ];
 
   return (
-    <div className="relative overflow-hidden py-20 px-24">
+    <div className="relative overflow-hidden py-10 md:py-16 lg:py-20 px-4 sm:px-8 md:px-12 lg:px-24">
       <div className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 opacity-20 -z-10"></div>
-      <div className="relative z-10 p-8 bg-white rounded-3xl shadow-lg">
-        <h2 className="text-4xl mb-5 text-[#404145] font-bold">
+      <div className="relative z-10 p-5 sm:p-6 md:p-8 bg-white rounded-xl md:rounded-2xl lg:rounded-3xl shadow-xl backdrop-blur-sm bg-white/90">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl mb-3 md:mb-5 text-gray-800 font-bold text-center md:text-left">
           Discover the best features of our freelancing platform
         </h2>
-        <ul className="flex flex-col gap-10">
-          {everythingData.map(({ title, subtitle }) => (
-            <li key={title}>
-              <div className="flex gap-2 items-center text-xl">
-                <BsCheckCircle className="text-[#62646a]" />
-                <h4>{title}</h4>
+        <div className="w-20 h-1 bg-gradient-to-r from-[#1DBF73] to-[#19A463] mx-auto md:mx-0 mb-6 md:mb-8 rounded-full"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10">
+          {everythingData.map(({ title, subtitle }, index) => (
+            <div 
+              key={title} 
+              className="feature-card p-5 rounded-lg border border-gray-100 hover:border-[#1DBF73]/30 transition-all duration-300 hover:shadow-md bg-white"
+            >
+              <div className="flex gap-3 items-start mb-2">
+                <div className="mt-1 text-[#1DBF73]">
+                  <BsCheckCircle size={20} />
+                </div>
+                <div>
+                  <h4 className="text-lg md:text-xl font-semibold text-gray-800 mb-2">{title}</h4>
+                  <p className="text-gray-600 text-sm md:text-base">{subtitle}</p>
+                </div>
               </div>
-              <p className="text-[#62646a]">{subtitle}</p>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
-      <div className="absolute top-1/2 right-0 transform -translate-y-1/2 -z-20">
+      
+      <div className="absolute top-1/2 right-0 transform -translate-y-1/2 -z-20 hidden lg:block">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 100 100"
@@ -57,6 +67,10 @@ function Everything() {
           />
         </svg>
       </div>
+      
+      {/* Mobile decorative elements */}
+      <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-[#1DBF73]/10 -z-10 lg:hidden"></div>
+      <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-yellow-400/10 -z-10 lg:hidden"></div>
     </div>
   );
 }
