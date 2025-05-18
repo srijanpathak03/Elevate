@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: [process.env.ORIGIN],
+    origin: ["https://elevate-lake.vercel.app", "http://localhost:3000", "http://localhost:5000", "https://elevate-gg3ib0wpc-srijan-pathaks-projects.vercel.app"],
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
